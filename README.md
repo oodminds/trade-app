@@ -1,1 +1,4 @@
 ### Trading Logs App
+
+
+hi
