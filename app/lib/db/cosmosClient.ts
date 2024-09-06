@@ -1,5 +1,8 @@
 import { CosmosClient } from '@azure/cosmos';
 import { Trade } from '../models/Trade';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 /**
  * Service for interacting with the database.
@@ -33,9 +36,9 @@ export class DbService {
   }
 
   constructor() {
-    const endpoint =  "https://cosmosdbnosql-trado.documents.azure.com:443/";
-    const key =  "E9vcx3t5oSofIH7CnMNbt2QIRbbGOdoS8HLhPNdyyeqRLj8xOyHwN7dMSQ3wls9r5ebfU1Rpyrn0ACDbZxwVCw==";
 
+    const endpoint = process.env.COSMOS_ENDPOINT;
+    const key = process.env.COSMOS_KEY;
 
     if (!endpoint || !key) {
       throw new Error('Missing COSMOS_ENDPOINT or COSMOS_KEY environment variable');
