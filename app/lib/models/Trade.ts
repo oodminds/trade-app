@@ -7,4 +7,4 @@ export interface Trade {
     createdAt: Date;
     updatedAt: Date;
     mistakes: string[];
-  }
+}

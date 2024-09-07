@@ -16,7 +16,8 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html data-theme="dark" lang="en">
+            {/* <html lang="en"> */}
             <body className={inter.className}>
                 {" "}
                 <NextAuthProvider>

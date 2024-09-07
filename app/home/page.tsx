@@ -1,11 +1,14 @@
-import SignoutButton from "@/components/signoutButton";
+import NavBar from "@/components/navBar";
+
+import TradeInput from "@/components/tradeInput";
 import { authConfig } from "@/lib/auth";
+import axios from "axios";
 
 import { getServerSession } from "next-auth";
 import { signOut, useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-import React from "react";
+import React, { useState } from "react";
 
 async function Home() {
     const session = await getServerSession(authConfig);
@@ -15,19 +18,20 @@ async function Home() {
     }
 
     return (
-        <div>
-            <div>Hi from home </div>
-            <div>
-                {session ? (
+        <>
+            {typeof session === "undefined" ? (
+                <div>Loading...</div>
+            ) : session ? (
+                <div>
                     <div>
-                        <div>{session?.user?.email}</div>
+                        <NavBar image={`${session?.user?.image}`} />
                     </div>
-                ) : (
-                    <div>no session</div>
-                )}
-            </div>
-            <SignoutButton />
-        </div>
+                    <TradeInput session={session} />
+                </div>
+            ) : (
+                <div>no session</div>
+            )}
+        </>
     );
 }
 
