@@ -1,13 +1,13 @@
 
 //** GET /api/trades */
 import { Trade } from "@/app/lib/models/Trade";
-import { DbService } from "@/app/lib/db/cosmosClient";
+import { getTrades, createTrade, getTrade, updateTrade, deleteTrade } from "@/app/lib/dbops/tradeOps";
 import { NextResponse } from "next/server"; // Add this import
 
 export async function GET(req: Request) {
     const url = new URL(req.url);
     const userId = url.searchParams.get("userId"); // Updated to extract userId from query parameters
-    const trades = await DbService.getInstance().getTrades(userId as string);
+    const trades = await getTrades(userId as string);
     return NextResponse.json(trades);
 }
 
@@ -16,7 +16,7 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
     const trade = await req.json();
-    const newTrade = await DbService.getInstance().createTrade(trade);
+    const newTrade = await createTrade(trade);
     return NextResponse.json(newTrade);
 }
 
@@ -26,7 +26,7 @@ export async function PUT(req: Request) {
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
     const trade = await req.json();
-    const updatedTrade = await DbService.getInstance().updateTrade(id as string, trade);
+    const updatedTrade = await updateTrade(id as string, trade);
     return NextResponse.json(updatedTrade);
 }
 
